@@ -1,59 +1,128 @@
 #include <stdio.h>
 
-// Desafio de Xadrez - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de movimentação das peças de xadrez.
-// O objetivo é utilizar estruturas de repetição e funções para determinar os limites de movimentação dentro do jogo.
+// Variáveis globais que representam o número de casas que cada peça pode se mover
+int movBispo = 5, movTorre = 5, movRainha = 8, movVertCavalo = 2, movHorzCavalo = 1;
 
-int main() {
-    // Nível Novato - Movimentação das Peças
+// Função para limpar o buffer de entrada
+void limparBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF); // Lê e descarta todos os caracteres até encontrar '\n' ou EOF
+}
 
-    int movBispo = 5, movTorre = 5, movRainha = 8; // Variáveis constantes para representar o número de casas que cada peça pode se mover.
-    int i = 0;  // Variavel para o while e o do-while
-
-    // Implementação de Movimentação do Bispo
-    // Utilizado o for para simular a movimentação do Bispo em diagonal.
-    puts("Movimentando Bispo para a diagonal superior direita");
-    for (int i = 0; i < movBispo; i++)
-    {
-        printf("> %d° movimento:\n", i+1);
+// Função recursiva para simular o movimento do bispo
+int MovimentoBispo(int casas) {
+    if (casas > 0) {
+        MovimentoBispo(casas - 1); // Chamada recursiva para simular o movimento
+        printf("> %d° movimento:\n", casas);
         puts("      Cima");
         puts("      Direita");
     };
-    
-    // Implementação de Movimentação da Torre
-    // utilizado o while para simular a movimentação da Torre para a direita.
-    puts("=============================================");
-    puts("Movimentando torre para a direita");
-    i = 0; // Zerando a variavel para nao ocorrer erros no while
-    while (i < movBispo)
-    {
-        printf("> %d° movimento:\n", i+1);
+}
+
+// Função para simular o movimento do bispo usando loops aninhados
+int MovimentoBispoLoopAninhado(int casas) {
+    int quant = 1;
+    while (casas > 0) {
+        printf("> %d° movimento:\n", quant);
+        puts("      Cima");
+        while (casas > 0) {
+            puts("      Direita");
+            break; // Interrompe o loop interno após imprimir "Direita"
+        }
+        casas--;
+        quant++;
+    }
+}
+
+// Função recursiva para simular o movimento da torre
+int MovimentoTorre(int casas) {
+    if (casas > 0) {
+        MovimentoTorre(casas - 1); // Chamada recursiva para simular o movimento
+        printf("> %d° movimento:\n", casas);
         puts("      Direita");
-        i++;
-    };
-    
-    // Implementação de Movimentação da Rainha
-    // utilizado o do-while para simular a movimentação da Rainha para a esquerda.
-    puts("=============================================");
-    puts("Movimentando rainha para a esquerda");
-    i = 0; // Zerando a variavel para nao ocorrer erros no do-while
-    do{
-        printf("> %d° movimento:\n", i+1);
+    }
+}
+
+// Função recursiva para simular o movimento da rainha
+int MovimentoRainha(int casas) {
+    if (casas > 0) {
+        MovimentoRainha(casas - 1); // Chamada recursiva para simular o movimento
+        printf("> %d° movimento:\n", casas);
         puts("      Esquerda");
-        i++;
-    }while(i < movRainha);
+    }
+}
 
+// Função para simular o movimento do cavalo
+int MovimentoCavalo(int casasv, int casash) {
+    for (casash, casasv; casasv > 0 || casash > 0;) {
+        if (casasv > 0) {
+            casasv--;
+            puts("      Cima");
+        } else {
+            casash--;
+            puts("      Direita");
+        }
+    }
+}
 
-    // Nível Aventureiro - Movimentação do Cavalo
-    // Sugestão: Utilize loops aninhados para simular a movimentação do Cavalo em L.
-    // Um loop pode representar a movimentação horizontal e outro vertical.
+// Função principal
+int main() {
+    int opcao;
+    printf("============= Menu =============\n");
+    printf("[1] Bispo\n");
+    printf("[2] Torre\n");
+    printf("[3] Rainha\n");
+    printf("[4] Cavalo\n");
+    printf("[5] Bispo Loop aninhado\n");
+    printf("[6] Sair\n");
+    printf("Escolha uma opcao: ");
+    scanf("%d", &opcao);
 
-    // Nível Mestre - Funções Recursivas e Loops Aninhados
-    // Sugestão: Substitua as movimentações das peças por funções recursivas.
-    // Exemplo: Crie uma função recursiva para o movimento do Bispo.
+    switch (opcao) {
+        case 1:
+            puts("=============================================");
+            printf("Movimentando Bispo para a diagonal superior direita %d casas\n", movBispo);
+            MovimentoBispo(movBispo); // Chama a função para mover o bispo
+            opcao = main(); // Volta ao menu principal
+            break;
 
-    // Sugestão: Implemente a movimentação do Cavalo utilizando loops com variáveis múltiplas e condições avançadas.
-    // Inclua o uso de continue e break dentro dos loops.
+        case 2:
+            puts("=============================================");
+            printf("Movimentando torre para a direita %d casas\n", movTorre);
+            MovimentoTorre(movTorre); // Chama a função para mover a torre
+            opcao = main(); // Volta ao menu principal
+            break;
 
+        case 3:
+            puts("=============================================");
+            printf("Movimentando rainha para a esquerda %d casas\n", movRainha);
+            MovimentoRainha(movRainha); // Chama a função para mover a rainha
+            opcao = main(); // Volta ao menu principal
+            break;
+
+        case 4:
+            puts("=============================================");
+            printf("Movimentando cavalo cima %d casas e direita %d casas\n", movVertCavalo, movHorzCavalo);
+            MovimentoCavalo(movVertCavalo, movHorzCavalo); // Chama a função para mover o cavalo
+            opcao = main(); // Volta ao menu principal
+            break;
+
+        case 5:
+            puts("=============================================");
+            printf("Movimentando Bispo para a diagonal superior direita %d casas\n", movBispo);
+            MovimentoBispoLoopAninhado(movBispo); // Chama a função para mover o bispo usando loops aninhados
+            opcao = main(); // Volta ao menu principal
+            break;
+
+        case 6:
+            puts("=-=-=-=-= Saindo =-=-=-=-=");
+            break; // Encerra o programa
+
+        default:
+            printf("******** Opcao Invalida! ********\nTente novamente!\n\n");
+            limparBuffer(); // Limpa o buffer de entrada
+            main(); // Volta ao menu principal
+            break;
+    }
     return 0;
 }
