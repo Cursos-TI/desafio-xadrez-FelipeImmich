@@ -6,16 +6,43 @@
 
 int main() {
     // Nível Novato - Movimentação das Peças
-    // Sugestão: Declare variáveis constantes para representar o número de casas que cada peça pode se mover.
+
+    int movBispo = 5, movTorre = 5, movRainha = 8; // Variáveis constantes para representar o número de casas que cada peça pode se mover.
+    int i = 0;  // Variavel para o while e o do-while
 
     // Implementação de Movimentação do Bispo
-    // Sugestão: Utilize uma estrutura de repetição para simular a movimentação do Bispo em diagonal.
-
+    // Utilizado o for para simular a movimentação do Bispo em diagonal.
+    puts("Movimentando Bispo para a diagonal superior direita");
+    for (int i = 0; i < movBispo; i++)
+    {
+        printf("> %d° movimento:\n", i+1);
+        puts("      Cima");
+        puts("      Direita");
+    };
+    
     // Implementação de Movimentação da Torre
-    // Sugestão: Utilize uma estrutura de repetição para simular a movimentação da Torre para a direita.
-
+    // utilizado o while para simular a movimentação da Torre para a direita.
+    puts("=============================================");
+    puts("Movimentando torre para a direita");
+    i = 0; // Zerando a variavel para nao ocorrer erros no while
+    while (i < movBispo)
+    {
+        printf("> %d° movimento:\n", i+1);
+        puts("      Direita");
+        i++;
+    };
+    
     // Implementação de Movimentação da Rainha
-    // Sugestão: Utilize uma estrutura de repetição para simular a movimentação da Rainha para a esquerda.
+    // utilizado o do-while para simular a movimentação da Rainha para a esquerda.
+    puts("=============================================");
+    puts("Movimentando rainha para a esquerda");
+    i = 0; // Zerando a variavel para nao ocorrer erros no do-while
+    do{
+        printf("> %d° movimento:\n", i+1);
+        puts("      Esquerda");
+        i++;
+    }while(i < movRainha);
+
 
     // Nível Aventureiro - Movimentação do Cavalo
     // Sugestão: Utilize loops aninhados para simular a movimentação do Cavalo em L.
